@@ -10,6 +10,7 @@ from datetime import datetime
 import supertrend_bot
 import ccxt
 import re
+import config
 
 
 class Logged_UI(tk.Tk):
@@ -188,5 +189,5 @@ class Trading(tk.Frame):
 		return closing_prices, timestamp 
 
 if __name__ == "__main__":
-	obj = Logged_UI('dthjzdvBJHYUJkZebr4QOmv4HmhfYG7NUVuhOG5pApVWSfZNuvZKq8Ybsg9TIdR6','87EYMXsZOLgPHBa8Ilp5XisnWenuzZN8gOT7TKjroAjLlSvKtEiE3TjbDp2yRhi6')
+	obj = Logged_UI(config.API_KEY, config.API_Secret)
 	obj.mainloop()
