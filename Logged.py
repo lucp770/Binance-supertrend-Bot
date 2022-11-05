@@ -55,6 +55,8 @@ class Logged_UI(tk.Tk):
 		frame.grid_forget()
 
 
+
+
 class config(tk.Frame):
 
 	def __init__(self, parent, controller):
@@ -78,12 +80,11 @@ class config(tk.Frame):
 		selected_currency = ttk.Combobox(self, textvariable = self.selecteded_currency, values =currencies ).grid(column = 2, row = 3)
 		
 
-
 		# amount to trade:
 
 		ttk.Label(self, text = "type the amount to trade: ").grid(column = 1, row = 4)
-		Amount = StringVar()
-		ttk.Entry(self, textvariable = Amount).grid(column  =2, row = 4)
+		self.Amount = tk.StringVar()
+		ttk.Entry(self, textvariable = self.Amount).grid(column  =2, row = 4)
 
 
 		#Start Button
@@ -111,6 +112,7 @@ class config(tk.Frame):
 
 		# get the selected value on the combobox.
 		selected = self.selecteded_currency.get()
+		Amount = self.Amount.get()
 
 		print('non_zero: ', non_zero, '\n \n selected: ',selected)
 
@@ -120,17 +122,22 @@ class config(tk.Frame):
 
 		user_can_trade = False
 		# checks if the coin is in the user balance.
+
 		for i in non_zero:
 			print(i[0])
-			if i[0] ==second_pair:
+			if i[0] ==second_pair and float(i[1]) >= float(Amount):
 				print('Match!!')
+
+				print('Amount selected: ', Amount)
+
+				print('non_zero[1]', i[1])
 				user_can_trade = True
 
 
 		if user_can_trade:
 			print('\n \n........start tradding')
-			# show_frame(Trading)
-			# invoque function to create the canvas and input in the screen.
+	
+			# create the tradding window.
 
 		else: tkinter.messagebox.showinfo("Error: Insulficient funds", "Please check if you have available coin to operate in the selected market")
 
@@ -151,7 +158,7 @@ class Trading(tk.Frame):
 		canvas.get_tk_widget().grid(row = 1, columnspan =  2, sticky = "nsew")
 
 		# get the data:
-		closing_prices, timestamp = get_data()
+		closing_prices, timestamp = self.get_data()
 
 		# plot
 		plt.plot(timestamp, closing_prices)
