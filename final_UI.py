@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt                                     # Usos para 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg     # Importando função da matplot, para o gráfico
 import json
 from datetime import datetime
-import supertrend_bot
 import ccxt
 
 import Logged

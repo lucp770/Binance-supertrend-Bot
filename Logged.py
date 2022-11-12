@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt                                     # Usos para 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg     # Importando função da matplot, para o gráfico
 import json
 from datetime import datetime
-import supertrend_bot
 import ccxt
 import re
 import config
@@ -19,6 +18,7 @@ class Logged_UI(tk.Tk):
 		tk.Tk.__init__(self)
 
 		self.wm_title("Binance Supertrend Bot")
+		
 
 		container = tk.Frame(self, height = 400, width = 600)
 		container.pack(side = "top", fill = "both", expand =True)
@@ -38,17 +38,18 @@ class Logged_UI(tk.Tk):
 
 		self.user_balance = self.exchange.fetchBalance()
 
+		self.frame = Configuration(container,self)
+		self.frame.grid(row = 0 , column =0, sticky ="nsew")
 
-		for F in (config, Trading):
-			frame = F(container,self)
+		# for F in (config):
+		# 	frame = F(container,self)
 
-			self.frames[F] = frame
-			frame.grid(row = 0 , column =0, sticky ="nsew")
+		# 	self.frames[F] = frame
+		# 	frame.grid(row = 0 , column =0, sticky ="nsew")
 
-		self.show_frame(config)
+		self.show_frame(self.frame)
 
-	def show_frame(self, tel):
-		frame =self.frames[tel]
+	def show_frame(self, frame):
 		frame.tkraise()
 
 	def hide_frame(self,tel):
@@ -56,9 +57,7 @@ class Logged_UI(tk.Tk):
 		frame.grid_forget()
 
 
-
-
-class config(tk.Frame):
+class Configuration(tk.Frame):
 
 	def __init__(self, parent, controller):
 		tk.Frame.__init__(self, parent)
@@ -147,46 +146,7 @@ class config(tk.Frame):
 			# show_frame(Trading)
 			# invoque function to create the canvas and input in the screen.
 
-class Trading(tk.Frame):
 
-	def __init__(self, parent, controller):
-		tk.Frame.__init__(self, parent)
-
-	def create_canvas(self):
-		# create canvas
-		fig = plt.figure()
-		canvas = FigureCanvasTkAgg(fig, master = self)
-		canvas.get_tk_widget().grid(row = 1, columnspan =  2, sticky = "nsew")
-
-		# get the data:
-		closing_prices, timestamp = self.get_data()
-
-		# plot
-		plt.plot(timestamp, closing_prices)
-		fig.autofmt_xdate()
-		fig.canvas.draw_idle()
-
-		# create the trading loop
-		while 1:
-
-			# get the current data
-			closing_prices,timestamp = get_data()
-
-			# redraw figure
-			plt.clf()
-			plt.plot(timestamp, closing_prices)
-			fig.autofmt_xdate()
-			fig.canvas.draw_idle()
-
-			#here we create our trading strategie.
-
-	def get_data(self, coin = 'ETH/USDT'):
-		exchange = ccxt.binance()
-		bars = exchange.fetch_ohlcv(coin, limit=100, timeframe='1m')
-		closing_prices = [value[4] for value in bars]
-		timestamp = [datetime.fromtimestamp(value[0]/1000.0) for value in bars]
-
-		return closing_prices, timestamp 
 
 if __name__ == "__main__":
 	obj = Logged_UI(config.API_KEY, config.API_Secret)
