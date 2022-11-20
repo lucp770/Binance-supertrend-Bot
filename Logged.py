@@ -9,6 +9,7 @@ import json
 from datetime import datetime
 import ccxt
 import re
+import Trad
 import config
 
 
@@ -18,10 +19,11 @@ class Logged_UI(tk.Tk):
 		tk.Tk.__init__(self)
 
 		self.wm_title("Binance Supertrend Bot")
-		
+		self.geometry("400x400")
+		self.eval('tk::PlaceWindow . center')
 
 		container = tk.Frame(self, height = 400, width = 600)
-		container.pack(side = "top", fill = "both", expand =True)
+		container.grid(column = 0 , row = 0)
 
 		container.grid_rowconfigure(0, weight = 1)
 		container.grid_columnconfigure(0, weight = 1)
@@ -63,32 +65,32 @@ class Configuration(tk.Frame):
 		tk.Frame.__init__(self, parent)
 
 
-		ttk.Label(self, text = "Configure Screen").grid(column = 1, row = 1)
+		ttk.Label(self, text = "Selected the tradding configurations: ").grid(column = 1, row = 1, columnspan =2, pady = 10)
 
 		# get the user balance
 
 		user_funds = self.get_user_funds(controller)[0]
 		
-		ttk.Label(self, text = "User available Balance: " ).grid(column = 1, row = 2)
-		ttk.Label(self, text = user_funds).grid( column = 2, row = 2)
+		ttk.Label(self, text = "User available Balance: " ).grid(column = 1, row = 2, pady = "20 10", padx = "10 0", sticky="w")
+		ttk.Label(self, text = user_funds).grid( column = 2, row = 2, pady = "20 10",  padx = "10 0", sticky="w")
 
-		ttk.Label(self, text = "Select crypto: ").grid(column = 1, row = 3)
+		ttk.Label(self, text = "Select crypto: ").grid(column = 1, row = 3, pady ="10 10",  padx = "10 0", sticky="w")
 
 		self.selecteded_currency = tk.StringVar()
 		currencies = self.get_available_currencies()
 
-		selected_currency = ttk.Combobox(self, textvariable = self.selecteded_currency, values =currencies ).grid(column = 2, row = 3)
+		selected_currency = ttk.Combobox(self, textvariable = self.selecteded_currency, values =currencies ).grid(column = 2, row = 3,sticky="w", padx = "10 0")
 		
 
 		# amount to trade:
 
-		ttk.Label(self, text = "type the amount to trade: ").grid(column = 1, row = 4)
+		ttk.Label(self, text = "type the amount to trade: ").grid(column = 1, row = 4, pady ="10 10", padx = "10 0", sticky="w")
 		self.Amount = tk.StringVar()
-		ttk.Entry(self, textvariable = self.Amount).grid(column  =2, row = 4)
+		ttk.Entry(self, textvariable = self.Amount).grid(column  =2, row = 4, sticky = "e")
 
 
 		#Start Button
-		ttk.Button(self, text = "Start Trading", command = lambda: self.start_trading(controller) ).grid(column = 2, row = 5)
+		ttk.Button(self, text = "Start Trading", command = lambda: self.start_trading(controller) ).grid(column = 2, row = 5, sticky = "e")
 
 	def get_available_currencies(self):
 		exchange = ccxt.binance()
@@ -138,6 +140,8 @@ class Configuration(tk.Frame):
 			print('\n \n........start tradding')
 	
 			# create the tradding window.
+			tradding_window = Trad.Tradding_UI(controller.Api_key,controller.Secret, selected)
+			controller.destroy()
 
 		else: tkinter.messagebox.showinfo("Error: Insulficient funds", "Please check if you have available coin to operate in the selected market")
 

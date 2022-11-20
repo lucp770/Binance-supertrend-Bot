@@ -22,6 +22,8 @@ class Page_managment(tk.Tk):
 
 		#invoque a method to name the window
 		self.wm_title("Test application")
+		
+
 
 		container = tk.Frame(self, height = 400, width = 600)
 		container.grid(column = 0 , row = 0)
@@ -36,6 +38,7 @@ class Page_managment(tk.Tk):
 
 		self.ApiKey = ''
 		self.Secret = ''
+		
 
 		for F in (splash_screen,Log_in):
 			frame = F(container, self)#this create the instances
@@ -43,6 +46,10 @@ class Page_managment(tk.Tk):
 			self.frames[F] = frame
 			frame.grid(column = 0 , row = 0)
 		self.show_frame(splash_screen)
+
+		# insert image:
+		
+
 
 	def show_frame(self, page):
 		#frame to show
@@ -60,14 +67,19 @@ class splash_screen(tk.Frame):
 	#constructor
 	def __init__(self, parent, controller):
 		tk.Frame.__init__(self, parent)
-		# controller.overrideredirect(True)
+		controller.overrideredirect(True)
 		ttk.Label(self, padding = "50", text = "Welcome to the Binance Supertrend Bot", font = ("Helvetica", 16)).grid(column = 1, row = 1)
-		# parent.after(5000, switch_screen)
-		#can i invoque show frame?? 
+		
+		# bgimage = tk.PhotoImage(file = "extras/Binance_Logo.png")
+		# print(dir(bgimage))
+		# canvas1 = tk.Canvas(self, width = 200, height=200)
+		# canvas1.grid(column = 1, row = 2, sticky ="nsew")
+		# canvas1.create_image(0,0,image = bgimage, anchor = "nw")
+		
+		
 		controller.after(3000, lambda: controller.show_frame(Log_in))
 		controller.after(3000, lambda: controller.hide_frame(splash_screen))
-		# controller.after(3000, lambda: controller.overrideredirect(False))
-		# self.grid_forget()
+		
 
 
 class Log_in(tk.Frame):
@@ -79,21 +91,21 @@ class Log_in(tk.Frame):
 		controller.geometry("600x400")
 		controller.resizable(0,0)
 		#creating the layout
-		tk.Label(self, text = "Please insert a valid API_KEY: ").grid(column = 1, row = 1, columnspan = 2)
+		tk.Label(self, text = "Please insert a valid API KEY: ").grid(column = 1, row = 1, columnspan = 2,padx =" 20 0", pady = "30 10")
 		
 		# insert padding to position the elements.
-		ttk.Label(self, text = "API key: ").grid(column  =1, row = 2)
+		ttk.Label(self, text = "API key: ").grid(column  =1, row = 2, padx="20 0", sticky ="w")
 
 		ApiKey = tk.StringVar()
-		ttk.Entry(self, textvariable = ApiKey, width = 50).grid(column = 2, row = 2)
+		ttk.Entry(self, textvariable = ApiKey, width = 50).grid(column = 2, row = 2, padx = 20,pady = 8)
 
 
-		ttk.Label(self, text = "API Secret: ").grid(column = 1, row =3)
+		ttk.Label(self, text = "API Secret: ").grid(column = 1, row =3,  padx="20 0", sticky = "e")
 
 		ApiSecret = tk.StringVar()
 		ttk.Entry(self, textvariable = ApiSecret, width = 50).grid(column =2, row =3)
 
-		btn_Log_in = ttk.Button(self, text = "Log In", command = lambda: log_in()).grid(column = 2, row = 4)
+		btn_Log_in = ttk.Button(self, text = "Log In", command = lambda: log_in()).grid(column = 2, row = 4,padx = "0 20", pady = 8, sticky = "e")
 
 		def log_in():
 			print("funcao log in")
