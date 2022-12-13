@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Binance supertrend Bot</title>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename = 'main.css')}}">
+
+</head>
+<body>
+	<div class="main-container">
+		<h1> Welcome to binance supertrend bot</h1>
+		<div class="input-container">
+			<label for="apikey"> API Key: </label>
+			<input class="user-input" type="text" name="apikey">
+			<label for="secret">API Secret:  </label>
+			<input class="user-input" type="text" name="secret">
+
+			<button class="continue-button">Continue</button>
+		</div>
+
+	</div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ccxt@2.2.89/dist/ccxt.browser.js"></script>
+<script src="{{url_for('static',filename = 'main.js')}}"></script>
+</body>
+</html>
