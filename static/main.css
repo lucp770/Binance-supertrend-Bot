@@ -1,0 +1,19 @@
+.input-container{
+	display: flex;
+	flex-direction: column;
+	margin: 300px;
+	margin-top: 2rem;
+}
+
+.main-container{
+/*	color: white;*/
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	margin: 2rem;
+	background-image: url("/static/images/Binance_Logo.png");
+}
+
+.user-input{
+	margin: 1rem 0;
+}

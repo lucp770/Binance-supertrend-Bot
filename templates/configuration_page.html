@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Binance supertrend Bot</title>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename = 'configuration_page.css')}}">
+
+</head>
+<body>
+	<div class="main-container">
+		<h1> Welcome to the configuration page</h1>
+		{% if name %}
+  		<h1>Hello {{ name }}!</h1>
+		{% else %}
+		  <h1>Hello, World!</h1>
+		{% endif %}
+
+	</div>
+<script src="{{url_for('static',filename = 'configuration_page.js')}}"></script>
+</body>
+</html>

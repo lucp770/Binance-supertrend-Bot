@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Binance supertrend Bot</title>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename = 'main.css')}}">
+</head>
+<body>
+	<div class="main-container">
+		<h1> Welcome to binance supertrend bot</h1>
+		<div class="input-container">
+			<form action = "/" method = "POST">
+				<label for="apikey"> API Key: </label>
+				<input class="user-input" type="text" name="apikey">
+				<label for="secret">API Secret:  </label>
+				<input class="user-input" type="text" name="secret">
+				<input type="submit" name="submit_button" value="Continue">
+			</form>
+		</div>
+
+	</div>
+<script src="{{url_for('static',filename = 'main.js')}}"></script>
+</body>
+</html>
