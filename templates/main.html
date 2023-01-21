@@ -7,15 +7,19 @@
 	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename = 'main.css')}}">
 </head>
 <body>
+
+	<nav class="menu-bar">
+		<h2 class="main-title">BINANCE SUPERTREND BOT</h2>
+	</nav>
+
 	<div class="main-container">
-		<h1> Welcome to binance supertrend bot</h1>
 		<div class="input-container">
 			<form action = "/" method = "POST">
-				<label for="apikey"> API Key: </label>
+				<label class="label" for="apikey"> API Key: </label>
 				<input class="user-input" type="text" name="apikey">
-				<label for="secret">API Secret:  </label>
+				<label class="label" for="secret">API Secret:  </label>
 				<input class="user-input" type="text" name="secret">
-				<input type="submit" name="submit_button" value="Continue">
+				<input class = "submit-btn" type="submit" name="submit_button" value="CONTINUE">
 			</form>
 		</div>
 

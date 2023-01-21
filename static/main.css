@@ -1,19 +1,96 @@
+:root{
+	--primaryColor: #ffd700;
+	--mainGrau: #696969;
+	--maingray: #23242a;
+}
+
+body{
+	background: #FCB500;
+}
 .input-container{
+	position: relative;
+	top: 7rem;
 	display: flex;
 	flex-direction: column;
 	margin: 300px;
 	margin-top: 2rem;
 }
 
+.menu-bar{
+	position: absolute;
+	width: 100%;
+	height: 89px;
+	left: 0px;
+	top: 0px;
+	background:var(--mainGrau);
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+
+	color: var(--primaryColor);
+}
+
 .main-container{
-/*	color: white;*/
+
+	margin-top: 5rem;
 	display: flex;
 	justify-content: center;
+	align-items: center;
+	align-content: center;
 	flex-direction: column;
-	margin: 2rem;
-	background-image: url("/static/images/Binance_Logo.png");
+
+	background: var(--mainGrau);
+	
+	border-radius: 1rem;
+	border: 1px solid var(--primaryColor);
+
+
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	height: 20rem;
+	width: 40rem;
+
+	color: white;
 }
 
 .user-input{
+	width: 30rem;
 	margin: 1rem 0;
+	border:1px solid var(--primaryColor);
+	background: transparent;;
+	border-radius: 1rem;
+	color:white;
+	padding: .5rem .5rem;
+
+	font-family: 'Helvetica';
+
+}
+
+.user-input:focus{
+	background: var(--primaryColor);
+	color: var(--mainGrau);
+	font-weight: bold;
+
+}
+
+.submit-btn{
+	cursor: pointer;
+	background: transparent;
+	border: 1px solid var(--primaryColor);
+	padding: .5rem 1rem;
+	width: 10rem;
+	border-radius: 1rem;
+	color: white;
+	margin-top: 1rem;
+}
+
+.submit-btn:hover{
+	background: var(--primaryColor);
+	color: var(--mainGrau);
+	font-weight: bold;
 }

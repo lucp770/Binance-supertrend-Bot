@@ -14,7 +14,7 @@ import utilities
 
 app = Flask(__name__)
 
-window = webview.create_window('Binance supertren Bot', app)
+# window = webview.create_window('Binance supertren Bot', app)
 
 @app.route("/")
 def homepage():
@@ -30,12 +30,22 @@ def login():
 	
 	valid_key = utilities.validate_key(api_key, api_secret)
 
+
 	if valid_key:
+
+		# get user balance.
+		balance  = utilities.getUserBalance(api_key, api_secret)
+		print(balance)
+
+		#get available coins:(this should get only the coins the user can trade)
+		available_coins = utilities.getMarkets()
+
 		#render the loggin page
-		return render_template("configuration_page.html")
+		return render_template("configuration_page.html", apiKey = api_key, apiSecret = api_secret, userBalance = balance, markets = available_coins)
+
 	else:
 		#render the error page.
 		return render_template("error_page.html")
 if __name__ =="__main__":
-	# app.run(debug=True)
-	webview.start()
+	app.run(debug=True)
+	# webview.start()
