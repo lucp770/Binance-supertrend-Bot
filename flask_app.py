@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import webview
+from flask_sock import Sock
 
 # insert the src directory in the list of folders where the interpreter look for modules.
 import os
@@ -13,6 +14,8 @@ import utilities
 ################# Application #########################
 
 app = Flask(__name__)
+
+sockets = Sock(app)
 
 # window = webview.create_window('Binance supertren Bot', app)
 
@@ -46,6 +49,20 @@ def login():
 	else:
 		#render the error page.
 		return render_template("error_page.html")
+
+@sockets.route('/tradding')
+def echo(ws):
+    while True:
+        data = ws.receive()
+        # here, get data from ccxt and the supertrend strategy.
+        
+        ws.send(data)
+        ws.send('this is a response from flask')
+
+# better alternative with better suport: https://flask-sock.readthedocs.io/en/latest/
+# https://github.com/miguelgrinberg/flask-sock
+
+
 if __name__ =="__main__":
 	app.run(debug=True)
 	# webview.start()

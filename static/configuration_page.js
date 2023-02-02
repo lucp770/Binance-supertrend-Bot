@@ -8,8 +8,6 @@ const assets = document.querySelectorAll('.asset');
 
 const comboBox = document.querySelector('.combo');
 
-
-
 // array of objects for user available assets.
 const userAvailableAssets = [];
 
@@ -21,6 +19,18 @@ function constructAssetsObj(){
 
 		userAvailableAssets.push({asset, total})
 	})
+}
+
+
+function connectServer(){
+	let socket = new WebSocket("ws://localhost:5000/tradding");
+
+	socket.onopen = function  (event){
+		console.log('conected to the server');
+}
+
+	return socket;
+
 }
 
 constructAssetsObj();
@@ -55,22 +65,31 @@ function checkAmount(){
 		}
 		else{
 			console.log('user can trade');
+			// two options: use client side trading.(this requires to rewrite a lot of code, maybe is not possible because )
+			// conect flask with websockets to use the previously developed algorithm.(this seens hard)
+			let socket = new WebSocket("ws://localhost:5000/tradding");
+			socket.onopen = function (event) {
+			console.log('conection opened with the server: ');
+			socket.send("WebSocket is really cool");
+				};
+
+			socket.onmessage = function(event){
+			console.log(' the server have sent a message');
+			console.log(event.data);
+		}
+
+
+			// i opt to use websockets to server comunication( an eg: https://stackoverflow.com/questions/15721679/update-and-render-a-value-from-flask-periodically)
 		}
 
 	}
-	console.log(match)
+	
 
-
-
-
-	// check if user has the assets
-	console.log('assets', userAvailableAssets)
 
 
 	}
 
-	// compare both numerically
-
+	
 }
 
 function showPlot(){
