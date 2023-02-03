@@ -39,6 +39,20 @@ def getMarkets():
 	markets = [market for market in exchange.load_markets()]
 	return markets
 
+def getHistoricalData(coin ='ETH/USDT', timeframe = '1m', limit = 30):
+	# this function is executed periodically
+	exchange = ccxt.binance()
+	bars = exchange.fetch_ohlcv('ETH/USDT',timeframe = timeframe,limit= limit)
+	#bars is an array limit x 6, where the columns are ['timestamp','open','high','low','close','volume']
+
+	# transfor the result in a string with json.dumps
+	bars = json.dumps(bars)
+	return bars
+
+
+
+
+
 
 # users = [{'id':1, 'name':'Lucas', 'api_hash': 'lipsum'}]
 	

@@ -33,7 +33,6 @@ def login():
 	
 	valid_key = utilities.validate_key(api_key, api_secret)
 
-
 	if valid_key:
 
 		# get user balance.
@@ -55,9 +54,10 @@ def echo(ws):
     while True:
         data = ws.receive()
         # here, get data from ccxt and the supertrend strategy.
-        
+        historical_data = utilities.getHistoricalData()
         ws.send(data)
-        ws.send('this is a response from flask')
+        ws.send(historical_data)
+
 
 # better alternative with better suport: https://flask-sock.readthedocs.io/en/latest/
 # https://github.com/miguelgrinberg/flask-sock
