@@ -1,12 +1,12 @@
 const btn = document.querySelector('.btn');
-let apiKey = document.querySelector('.key');
-let apiSecret = document.querySelector('.secret');
 
 const startBtn = document.querySelector('.start-tradding-btn');
+const stopBtn = document.querySelector('.stop-tradding-btn');
 const userInputAmount = document.querySelector('.trading-amount-class');
 const assets = document.querySelectorAll('.asset');
 
 const comboBox = document.querySelector('.combo');
+let socket;
 
 // array of objects for user available assets.
 const userAvailableAssets = [];
@@ -65,11 +65,12 @@ function checkAmount(){
 		}
 		else{
 			console.log('user can trade');
-			// two options: use client side trading.(this requires to rewrite a lot of code, maybe is not possible because )
-			// conect flask with websockets to use the previously developed algorithm.(this seens hard)
-			let socket = new WebSocket("ws://localhost:5000/tradding");
+			
+			socket = new WebSocket("ws://localhost:5000/tradding");
 			socket.onopen = function (event) {
 			console.log('conection opened with the server: ');
+
+
 			socket.send("WebSocket is really cool");
 				};
 
@@ -102,4 +103,11 @@ function showPlot(){
 startBtn.addEventListener('click', ()=>{
 	checkAmount();
 	
+})
+
+stopBtn.addEventListener('click', ()=>{
+	if(socket){
+		socket.close()
+		console.log('stop btn pressionado');
+	}
 })

@@ -57,6 +57,9 @@ def echo(ws):
         historical_data = utilities.getHistoricalData()
         ws.send(data)
         ws.send(historical_data)
+        # quando eu encerro a conexão no lado do cliente o servidor resulta em erro, não sai do loop.
+    print('Out of the loop')
+
 
 
 # better alternative with better suport: https://flask-sock.readthedocs.io/en/latest/

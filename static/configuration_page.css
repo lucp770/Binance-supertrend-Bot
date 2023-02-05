@@ -73,6 +73,24 @@ align-items: center;
   margin-top: 5rem;
 }
 
+.stop-tradding-btn{
+	background: red;
+  padding: .5rem 1rem;
+  font-family: helvetica;
+  font-size: 1.2rem;
+  color: white;
+  font-weight: bolder;
+  letter-spacing: .1rem;
+  border-radius: 1.5rem;
+  margin-top: 5rem;
+  margin-left: 1rem;
+}
+
+.btn-container{
+	display: flex;
+	flex-direction: row;
+
+}
 .trading-amount-container{
 	display: flex;
 	flex-direction: column;
