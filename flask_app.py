@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 import webview
 from flask_sock import Sock
+import time
 
 # insert the src directory in the list of folders where the interpreter look for modules.
 import os
@@ -54,11 +55,12 @@ def echo(ws):
     while True:
         data = ws.receive()
         # here, get data from ccxt and the supertrend strategy.
-        historical_data = utilities.getHistoricalData()
-        ws.send(data)
-        ws.send(historical_data)
-        # quando eu encerro a conexão no lado do cliente o servidor resulta em erro, não sai do loop.
-    print('Out of the loop')
+        
+        while True:
+        	historical_data = utilities.getHistoricalData()
+        	ws.send(historical_data)
+        	time.sleep(1)
+
 
 
 
