@@ -24,13 +24,12 @@
 	width: 30%;
 border: 3px solid var(--primaryColor);
 background: lightgray;
-position: fixed;
+position: absolute;
 margin: 0;
 padding: 1rem;
 left: 0;
 width: 100%;
 height: 3rem;
-position: fixed;
 bottom: 0;
 z-index: 0;
 display: flex;
@@ -112,5 +111,16 @@ align-items: center;
   width: 100%;
   height: calc(100vh - 9rem);
   margin: 2rem;
+
+  display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-left: 20%;
+	
+
 }
+
+.image-container div{
+	position: relative;
+
 }

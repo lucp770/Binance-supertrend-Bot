@@ -21,6 +21,7 @@ function constructAssetsObj(){
 	})
 }
 
+constructAssetsObj();
 
 function connectServer(){
 	let socket = new WebSocket("ws://localhost:5000/tradding");
@@ -33,7 +34,26 @@ function connectServer(){
 
 }
 
-constructAssetsObj();
+
+
+
+function generatePlot(data){
+	let [timestamp,open,high,low,close,volume] = data;
+	console.log({timestamp,open,high,low,close,volume});
+
+}
+
+function testePlot(){
+	let panel = document.getElementById('tester');
+	Plotly.newPlot( panel, [{
+	x: [1, 2, 3, 4, 5],
+	y: [1, 2, 4, 8, 16] }], {
+	margin: { t: 0 } } );
+}
+// need to generate a candlestick plot.
+// https://plotly.com/javascript/candlestick-charts/
+
+testePlot();
 
 function checkAmount(){
 	// get the inserted ammoun
@@ -70,17 +90,23 @@ function checkAmount(){
 			socket.onopen = function (event) {
 			console.log('conection opened with the server: ');
 
-
 			socket.send("WebSocket is really cool");
 				};
 
 			socket.onmessage = function(event){
 			console.log(' the server have sent a message');
-			console.log(event.data);
+			
+			// the data is a string, parse to obtain an array
+			let data = JSON.parse(event.data);
+			data = data[0];
+
+			generatePlot(data)
+			// console.log(data);
+// 
+			// generate plot
 		}
-
-
 			// i opt to use websockets to server comunication( an eg: https://stackoverflow.com/questions/15721679/update-and-render-a-value-from-flask-periodically)
+			
 		}
 
 	}

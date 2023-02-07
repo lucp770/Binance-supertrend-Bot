@@ -71,3 +71,5 @@ def echo(ws):
 if __name__ =="__main__":
 	app.run(debug=True)
 	# webview.start()
+
+	# https://plotly.com/javascript/getting-started/

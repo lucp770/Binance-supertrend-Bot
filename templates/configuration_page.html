@@ -38,7 +38,8 @@
 			<h3>Select market to operate:</h3>
 
 			<select class="combo">
-				<option value="Select">Select....</option>
+				<!-- <option value="Select">Select....</option> -->
+				<option value="API/BRL">API/BRL</option>
 				{% for market in markets %}
 				<option value={{market}}>{{market}}</option>
 				{% endfor %}
@@ -69,7 +70,7 @@
 	</div>
 
 	<div class="image-container">
-		
+		<div id="tester" style="width:800px;height:400px;"></div>
 	</div>
 
 	<footer class="footer">
