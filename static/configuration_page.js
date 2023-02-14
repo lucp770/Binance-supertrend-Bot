@@ -34,12 +34,55 @@ function connectServer(){
 
 }
 
-
-
-
 function generatePlot(data){
-	let [timestamp,open,high,low,close,volume] = data;
-	console.log({timestamp,open,high,low,close,volume});
+	// data is an array with 30 elements.
+	
+	// define empty arrays.
+	let timestamp=[]; 
+	let open =[];
+	let high =[];
+	let low =[];
+	let close =[];
+	let volume =[];
+
+	// for each element on data fill the array.
+	data.forEach(datapoint =>{
+		timestamp.push(datapoint[0]);
+		open.push(datapoint[1]);
+		high.push(datapoint[2]);
+		low.push(datapoint[3]);
+		close.push(datapoint[4]);
+		volume.push(datapoint[5]);
+	});
+
+	// create a candlestick graph
+
+	console.log({data});
+
+	console.log({open});
+	// let [timestamp,open,high,low,close,volume] = data;
+
+	let trace1 ={
+		x:timestamp,
+		close: close,
+
+		decreasing: {line: {color: '#7F7F7F'}}, 
+
+		high: high,
+
+		increasing: {line: {color: '#17BECF'}}, 
+
+  		line: {color: 'rgba(31,119,180,1)'},
+
+  		low: low,
+  		open: open,
+
+  		type: 'candlestick', 
+	  	xaxis: 'x', 
+	  	yaxis: 'y'
+
+	}; 
+	// console.log({timestamp,open,high,low,close,volume});
 
 }
 
@@ -98,7 +141,7 @@ function checkAmount(){
 			
 			// the data is a string, parse to obtain an array
 			let data = JSON.parse(event.data);
-			data = data[0];
+			// data = data[0];
 
 			generatePlot(data)
 			// console.log(data);
@@ -111,9 +154,6 @@ function checkAmount(){
 
 	}
 	
-
-
-
 	}
 
 	
