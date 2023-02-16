@@ -1,5 +1,7 @@
 import ccxt
 import json
+from datetime import datetime
+
 
 def validate_key(apiKey, apiSecret):
 	logInObj = {'apiKey': apiKey, 'secret': apiSecret, 'timeout': 30000, 'enableRateLimit': True}
@@ -42,9 +44,9 @@ def getMarkets():
 def getHistoricalData(coin ='ETH/USDT', timeframe = '1m', limit = 30):
 	# this function is executed periodically
 	exchange = ccxt.binance()
-	bars = exchange.fetch_ohlcv('ETH/USDT',timeframe = timeframe,limit= limit)
+	bars = exchange.fetch_ohlcv(coin,timeframe = timeframe,limit= limit)
 	#bars is an array limit x 6, where the columns are ['timestamp','open','high','low','close','volume']
-
+	
 	# transfor the result in a string with json.dumps
 	bars = json.dumps(bars)
 	return bars

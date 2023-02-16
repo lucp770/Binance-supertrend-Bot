@@ -34,6 +34,11 @@ function connectServer(){
 
 }
 
+function transformToDate(unixtimestamp){
+	let date  = new Date(unixtimestamp);
+	return date;
+}
+
 function generatePlot(data){
 	// data is an array with 30 elements.
 	
@@ -47,7 +52,7 @@ function generatePlot(data){
 
 	// for each element on data fill the array.
 	data.forEach(datapoint =>{
-		timestamp.push(datapoint[0]);
+		timestamp.push(transformToDate(datapoint[0]));
 		open.push(datapoint[1]);
 		high.push(datapoint[2]);
 		low.push(datapoint[3]);
@@ -56,10 +61,9 @@ function generatePlot(data){
 	});
 
 	// create a candlestick graph
-
 	console.log({data});
 
-	console.log({open});
+	console.log({timestamp});
 	// let [timestamp,open,high,low,close,volume] = data;
 
 	let trace1 ={
@@ -82,6 +86,28 @@ function generatePlot(data){
 	  	yaxis: 'y'
 
 	}; 
+
+	let plotData = [trace1];
+
+	let layout = {
+		dragmode: 'zoom',
+		margin: {
+			r: 10, 
+		    t: 25, 
+		    b: 40, 
+		    l: 60
+		},
+
+		showLegend: false,
+		 xaxis: {
+		    autorange: true, 
+		    domain: [0, 1], 
+		    range: ['2017-01-03 12:00', '2017-02-15 12:00'], 
+		    rangeslider: {range: ['2017-01-03 12:00', '2017-02-15 12:00']}, 
+		    title: 'Date', 
+		    type: 'date'
+		  }, 
+	}
 	// console.log({timestamp,open,high,low,close,volume});
 
 }
@@ -153,7 +179,7 @@ function checkAmount(){
 		}
 
 	}
-	
+
 	}
 
 	
