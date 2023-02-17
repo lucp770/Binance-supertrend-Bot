@@ -36,7 +36,9 @@ function connectServer(){
 
 function transformToDate(unixtimestamp){
 	let date  = new Date(unixtimestamp);
-	return date;
+	let string = date.getFullYear() + '-' + 0 + (date.getMonth()+1) + '-' + date.getDate() + ' '+
+	 date.getHours() + ':' + date.getMinutes();
+	return string;
 }
 
 function generatePlot(data){
@@ -60,11 +62,7 @@ function generatePlot(data){
 		volume.push(datapoint[5]);
 	});
 
-	// create a candlestick graph
-	console.log({data});
-
-	console.log({timestamp});
-	// let [timestamp,open,high,low,close,volume] = data;
+	let totalSize = Math.abs(Math.max(...high) - Math.min(...low));
 
 	let trace1 ={
 		x:timestamp,
@@ -84,7 +82,6 @@ function generatePlot(data){
   		type: 'candlestick', 
 	  	xaxis: 'x', 
 	  	yaxis: 'y'
-
 	}; 
 
 	let plotData = [trace1];
@@ -102,14 +99,24 @@ function generatePlot(data){
 		 xaxis: {
 		    autorange: true, 
 		    domain: [0, 1], 
-		    range: ['2017-01-03 12:00', '2017-02-15 12:00'], 
-		    rangeslider: {range: ['2017-01-03 12:00', '2017-02-15 12:00']}, 
+		    range: [timestamp[0], timestamp[timestamp.length-1]], 
+		    rangeslider: {range: [timestamp[0], timestamp[timestamp.length-1]]}, 
 		    title: 'Date', 
 		    type: 'date'
 		  }, 
-	}
-	// console.log({timestamp,open,high,low,close,volume});
 
+		yaxis: {
+		    autorange: true, 
+		    domain: [0, 1], 
+		    range: [Math.min(...low),Math.max(...high)], 
+		    type: 'linear'
+  		}
+	};
+
+	console.log(timestamp[0],timestamp[timestamp.length-1] );
+	let panel = document.getElementById('tester');
+	Plotly.newPlot(panel, plotData, layout);
+	
 }
 
 function testePlot(){
@@ -167,12 +174,10 @@ function checkAmount(){
 			
 			// the data is a string, parse to obtain an array
 			let data = JSON.parse(event.data);
-			// data = data[0];
-
+			
 			generatePlot(data)
-			// console.log(data);
-// 
-			// generate plot
+
+
 		}
 			// i opt to use websockets to server comunication( an eg: https://stackoverflow.com/questions/15721679/update-and-render-a-value-from-flask-periodically)
 			

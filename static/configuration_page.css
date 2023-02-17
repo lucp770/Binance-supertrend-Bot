@@ -85,9 +85,20 @@ align-items: center;
   margin-left: 1rem;
 }
 
+.start-tradding-btn:hover{
+	cursor: pointer;
+	filter: brightness(1.2);
+}
+.stop-tradding-btn:hover{
+	cursor: pointer;
+	filter: brightness(1.2);
+	
+}
+
 .btn-container{
 	display: flex;
 	flex-direction: row;
+
 
 }
 .trading-amount-container{
