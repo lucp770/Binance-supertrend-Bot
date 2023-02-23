@@ -1,5 +1,4 @@
 const btn = document.querySelector('.btn');
-
 const startBtn = document.querySelector('.start-tradding-btn');
 const stopBtn = document.querySelector('.stop-tradding-btn');
 const userInputAmount = document.querySelector('.trading-amount-class');
@@ -82,9 +81,10 @@ function generatePlot(data){
   		type: 'candlestick', 
 	  	xaxis: 'x', 
 	  	yaxis: 'y'
-	}; 
+	};
 
 	let plotData = [trace1];
+	// need to create trace 2 e trace 3 do indicador supertrend.
 
 	let layout = {
 		dragmode: 'zoom',
@@ -136,7 +136,6 @@ function checkAmount(){
 
 	let selectedCoin= comboBox.value
 	
-
 	// get the selling and buying asset
 	if (selectedCoin != 'Select'){
 
@@ -190,12 +189,6 @@ function checkAmount(){
 	
 }
 
-function showPlot(){
-	console.log('clicado');
-}
-
-
-
 
 startBtn.addEventListener('click', ()=>{
 	checkAmount();
@@ -208,3 +201,6 @@ stopBtn.addEventListener('click', ()=>{
 		console.log('stop btn pressionado');
 	}
 })
+
+// o site precisa ter uma opção para configurações avançadas onde o usuario pode ser escolher parametros para configurar o indicador supertrend
+// dentre esses para metros o multiplicador que é aplicado ao ATR, o número de elementos usados para calcular o ATR.

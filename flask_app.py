@@ -59,6 +59,8 @@ def echo(ws):
         while True:
         	historical_data = utilities.getHistoricalData()
         	ws.send(historical_data)
+        	# send here the data associated with the supertrend indicator.
+        	# ws.dend(supertrend_data)
         	time.sleep(1)
 
 
@@ -73,3 +75,9 @@ if __name__ =="__main__":
 	# webview.start()
 
 	# https://plotly.com/javascript/getting-started/
+
+
+"""
+valor agregado no software:
+	-analise tecnica, bots e trade autonomo personalizado diretamente da sua corretora.
+"""

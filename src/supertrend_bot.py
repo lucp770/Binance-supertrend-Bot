@@ -96,3 +96,13 @@ if __name__ == '__main__' :
 	while True:
 		schedule.run_pending()
 		time.sleep(1)
+
+
+"""Supertrend
+Summary
+
+The Supertrend helps you make the right trading decisions
+. However, there are times when it generates false signals.
+ Therefore, it is best to use the right combination of several indicators. 
+ Like any other indicator, Supertrend works best when used with 
+ other indicators such as MACD, Parabolic SAR, or RSI."""

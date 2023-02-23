@@ -87,7 +87,7 @@ align-items: center;
 
 .start-tradding-btn:hover{
 	cursor: pointer;
-	filter: brightness(1.2);
+	filter: brightness(1.2);	
 }
 .stop-tradding-btn:hover{
 	cursor: pointer;
@@ -118,6 +118,7 @@ align-items: center;
 }
 
 .image-container{
+	position: absolute;
   background: gray;
   width: 100%;
   height: calc(100vh - 9rem);
@@ -132,6 +133,9 @@ align-items: center;
 }
 
 .image-container div{
-	position: relative;
+	position: absolute;
+/*	left: 9rem;*/
+left: 3.5rem;
+margin-left: 0;
 
 }
