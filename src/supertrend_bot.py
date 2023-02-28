@@ -91,11 +91,33 @@ def run_bot():
 if __name__ == '__main__' :
 	print('running as the main script ....')
 	#configuring the schedule to run every 10s
-	schedule.every(2).seconds.do(run_bot)
+	# schedule.every(2).seconds.do(run_bot)
 
-	while True:
-		schedule.run_pending()
-		time.sleep(1)
+	# while True:
+	# 	schedule.run_pending()
+	# 	time.sleep(1)
+
+	exchange = ccxt.binance()
+
+	# get the historical data]
+	bars = exchange.fetch_ohlcv('ETH/USDT',timeframe='1m',limit=100)
+
+	#create and configure a pandas dataframe
+	df = pd.DataFrame(bars[:-1],columns=['timestamp','open','high','low','close','volume'])
+	df['timestamp']=pd.to_datetime(df['timestamp'],unit='ms')
+
+	supertrend_data = supertrend(df)
+
+	# slicing the dataframe
+	supertrend_data = supertrend_data.loc[:, ['timestamp', 'close', 'upper_band', 'lower_band', 'in_uptrend']]
+	supertrend_data = supertrend_data[15:]#remove the first 15 datapoints that do not work because of the ATR calculation
+	# print(supertrend_data.head())
+
+	supertrend_data_lista = supertrend_data.values
+	
+
+
+
 
 
 """Supertrend

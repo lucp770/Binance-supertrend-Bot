@@ -165,6 +165,7 @@ function checkAmount(){
 			socket.onopen = function (event) {
 			console.log('conection opened with the server: ');
 
+			// TODO: send the selected coin to the server.
 			socket.send("WebSocket is really cool");
 				};
 
@@ -189,6 +190,8 @@ function checkAmount(){
 	
 }
 
+
+// ---------------------------------------APPLICATION START HERE ----------------------------------//
 
 startBtn.addEventListener('click', ()=>{
 	checkAmount();

@@ -53,7 +53,9 @@ def login():
 @sockets.route('/tradding')
 def echo(ws):
     while True:
+    	# TODO: manipulate data , to be the coin and ammount selected.
         data = ws.receive()
+        
         # here, get data from ccxt and the supertrend strategy.
         
         while True:
@@ -62,12 +64,6 @@ def echo(ws):
         	# send here the data associated with the supertrend indicator.
         	# ws.dend(supertrend_data)
         	time.sleep(1)
-
-
-
-
-# better alternative with better suport: https://flask-sock.readthedocs.io/en/latest/
-# https://github.com/miguelgrinberg/flask-sock
 
 
 if __name__ =="__main__":
@@ -80,4 +76,9 @@ if __name__ =="__main__":
 """
 valor agregado no software:
 	-analise tecnica, bots e trade autonomo personalizado diretamente da sua corretora.
+
+
+Pitch:
+	existe uma grande demanda pela  capacidade de se implementar estratégias automas de trading que permite.
+
 """

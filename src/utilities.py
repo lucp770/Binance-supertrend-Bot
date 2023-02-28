@@ -58,10 +58,14 @@ def getHistoricalData(coin ='ETH/USDT', timeframe = '1m', limit = 30):
 	bars = json.dumps(bars)
 	return bars
 
-def check_in_uppertrend(df):
+def trade_signal(df):
+	"""
+		precisa manter rastro da posição atual, não quero comprar se já estou comprado.
+	"""
+	pass
 
 
-def supertrend_indicator(bars, period = 15):
+def supertrend_indicator(bars, period = 15, multiplier = 3):
 
 	def true_range(df):
 		df['previous_close'] = df['close'].shift(1)
@@ -88,7 +92,26 @@ def supertrend_indicator(bars, period = 15):
 
 		if df['close'][current_price_idx] > df['upper_band'][previous_price_idx]:
 			df['in_uptrend'] = True 
-		elif df['close'][current_price_idx] < df['lower_band'][]
+		elif df['close'][current_price_idx] < df['lower_band'][previous_price_idx]:
+			df['in_uptrend'] = False
+		else:
+			df['in_uptrend'][current_price_idx] = df['in_uptrend'][previous_price_idx]
+
+			if df['in_uptrend'][current_price_idx] and df['lower_band'][current_price_idx] < df['lower_band'][previous_price_idx]:
+				df['lower_band'][current] = df['lower_band'][previous]
+
+			if not df['in_uptrend'][current_price_idx] and df['upper_band'][current_price_idx] > df['upper_band'][previous_price_idx]:
+				df['upper_band'][current_price_idx] = df['upper_band'][previous_price_idx]
+
+			# check if there is a buy or sell signal.
+	
+	# get the upper and lower band as a list.
+	df = df.loc([:,['timestamp','close','upper_band','lower_band','in_uptrend']])
+
+
+	print(df)
+
+
 
 
 
