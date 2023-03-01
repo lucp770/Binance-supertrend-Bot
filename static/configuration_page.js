@@ -131,10 +131,43 @@ function testePlot(){
 
 testePlot();
 
+function getUserSelection(){
+
+	let selectedCoin= comboBox.value;
+	let traddingAmmount = Number(userInputAmount.value);
+
+
+	return {selectedCoin, traddingAmmount}
+
+}
+
+function executeTrade(){
+	socket = new WebSocket("ws://localhost:5000/tradding");
+	socket.onopen = function (event) {
+	console.log('conection opened with the server: ');
+
+	let userSelection = JSON.stringify(getUserSelection());
+
+	// send user information to the server.
+	socket.send(userSelection);
+		};
+
+	socket.onmessage = function(event){
+	console.log(' the server have sent a message');
+	
+	// the data is a string, parse to obtain an array
+	let data = JSON.parse(event.data);
+	generatePlot(data)
+
+}
+
+
+}
+
 function checkAmount(){
 	// get the inserted ammoun
 
-	let selectedCoin= comboBox.value
+	let {selectedCoin, traddingAmmount} = getUserSelection();
 	
 	// get the selling and buying asset
 	if (selectedCoin != 'Select'){
@@ -143,9 +176,7 @@ function checkAmount(){
 	let sellAsset = selectedCoin.substring(separator+1, selectedCoin.length);
 	let buyAsset = selectedCoin.substring(0,separator);
 
-	console.log(userInputAmount)
-
-	let traddingAmmount = Number(userInputAmount.value);
+	// let traddingAmmount = Number(userInputAmount.value);
 
 	let match = userAvailableAssets.find(coin => coin.asset === sellAsset);
 
@@ -160,25 +191,10 @@ function checkAmount(){
 		}
 		else{
 			console.log('user can trade');
+
+			executeTrade();
 			
-			socket = new WebSocket("ws://localhost:5000/tradding");
-			socket.onopen = function (event) {
-			console.log('conection opened with the server: ');
-
-			// TODO: send the selected coin to the server.
-			socket.send("WebSocket is really cool");
-				};
-
-			socket.onmessage = function(event){
-			console.log(' the server have sent a message');
 			
-			// the data is a string, parse to obtain an array
-			let data = JSON.parse(event.data);
-			
-			generatePlot(data)
-
-
-		}
 			// i opt to use websockets to server comunication( an eg: https://stackoverflow.com/questions/15721679/update-and-render-a-value-from-flask-periodically)
 			
 		}

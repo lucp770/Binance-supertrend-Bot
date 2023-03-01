@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 import webview
 from flask_sock import Sock
 import time
+import json
 
 # insert the src directory in the list of folders where the interpreter look for modules.
 import os
@@ -53,14 +54,31 @@ def login():
 @sockets.route('/tradding')
 def echo(ws):
     while True:
-    	# TODO: manipulate data , to be the coin and ammount selected.
-        data = ws.receive()
-        
-        # here, get data from ccxt and the supertrend strategy.
-        
+
+        data_received = ws.receive()#receive data about user preferences.
+        parsed_data = json.loads(data_received)
+
+        selected_coin = parsed_data['selectedCoin']
+        trading_amount = parsed_data['traddingAmmount']
+
+
+
         while True:
-        	historical_data = utilities.getHistoricalData()
-        	ws.send(historical_data)
+        	data_package = [];
+
+        	historical_data = utilities.getHistoricalData(coin = selected_coin)
+        	data_package.append(historical_data);
+
+        	# ws.send(historical_data)
+
+        	# invoque supertrend(historical_data)
+        	supertrend_data = utilities.supertrend_indicator(historical_data)
+        	print(supertrend_data)
+
+        	data_package.append(supertrend_data)
+
+        	print(data_package)
+
         	# send here the data associated with the supertrend indicator.
         	# ws.dend(supertrend_data)
         	time.sleep(1)

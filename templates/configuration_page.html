@@ -9,9 +9,7 @@
 
 	  <!-- get the ccxt from cdn -->
 	  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ccxt@2.6.36/dist/ccxt.browser.min.js"></script>
-	  
 	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename = 'configuration_page.css')}}">
-
 </head>
 <body>
 
@@ -22,53 +20,39 @@
 
 	<div class="menu">
 		<h3>Trading configuration: </h3>
-
 		<!-- add span dinamically for each coin  in users balance.-->
 		<div class="user-assets">
+
 		{% for coin in userBalance %}
 			<div class="asset">
 				<span>{{coin[0]}}</span>
 				<span>{{coin[1]}}</span>
 			</div>
-
 		{% endfor %}
+		
 		</div>
 
 		<div class="markets">
 			<h3>Select market to operate:</h3>
-
 			<select class="combo">
 				<!-- <option value="Select">Select....</option> -->
-				<option value="API/BRL">API/BRL</option>
+				<option value="AAVE/BRL">AAVE/BRL</option>
 				{% for market in markets %}
 				<option value={{market}}>{{market}}</option>
 				{% endfor %}
 			</select>
-				
 		</div>
 
 		<div class="trading-amount-container">
-
 			<label for="trading-amount">insert the amount to trade:</label>
 			<input class = "trading-amount-class"type="text" name="trading-amount" />
-
 			<div class="Results: "></div>
-
 		</div>
+
 		<div class="btn-container">
 			<button class="start-tradding-btn disabled">Start Trading</button>
 			<button class="stop-tradding-btn disabled">Stop</button>
 		</div>
-
-
-<!-- 		{% if name %}
-  		<h1>Hello {{ name }}!</h1>
-		{% else %}
-		  <h1>Hello, World!</h1>
-		{% endif %}
- -->
-
- <!-- <button class="btn">show keys.</button> -->
 	</div>
 
 	<div class="image-container">

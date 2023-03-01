@@ -51,10 +51,7 @@ def getHistoricalData(coin ='ETH/USDT', timeframe = '1m', limit = 30):
 	exchange = ccxt.binance()
 	bars = exchange.fetch_ohlcv(coin,timeframe = timeframe,limit= limit)
 	#bars is an array limit x 6, where the columns are ['timestamp','open','high','low','close','volume']
-
-	# get the supertrend from bars
 	
-	# transfor the result in a string with json.dumps
 	bars = json.dumps(bars)
 	return bars
 
@@ -106,24 +103,6 @@ def supertrend_indicator(bars, period = 15, multiplier = 3):
 			# check if there is a buy or sell signal.
 	
 	# get the upper and lower band as a list.
-	df = df.loc([:,['timestamp','close','upper_band','lower_band','in_uptrend']])
-
-
-	print(df)
-
-
-
-
-
-
-
-
-
-
-
-
-
-# users = [{'id':1, 'name':'Lucas', 'api_hash': 'lipsum'}]
+	df = df.loc[:,['upper_band','lower_band','in_uptrend']]
 	
-
-
+	return df.values

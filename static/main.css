@@ -88,6 +88,9 @@ background-image: linear-gradient(to right, var(--mainGrau), 80%, var(--maingray
 
 	font-family: 'Helvetica';
 
+	transition: 0.3s background ;
+	transition-timing-function: ease-in-out;
+
 }
 
 .user-input:focus{
@@ -106,6 +109,9 @@ background-image: linear-gradient(to right, var(--mainGrau), 80%, var(--maingray
 	border-radius: 1rem;
 	color: white;
 	margin-top: 1rem;
+
+	transition: 0.3s background, 0.3s color, 0.3s font-weight;
+	transition-timing-function: ease-in-out;
 }
 
 .submit-btn:hover{
