@@ -70,9 +70,9 @@ def echo(ws):
         	data_package.append(historical_data);
 
         	# ws.send(historical_data)
-
+        	print(historical_data)
         	# invoque supertrend(historical_data)
-        	supertrend_data = utilities.supertrend_indicator(historical_data)
+        	supertrend_data = utilities.supertrend_indicator(bars =historical_data)
         	print(supertrend_data)
 
         	data_package.append(supertrend_data)

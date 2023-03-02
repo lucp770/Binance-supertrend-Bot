@@ -61,27 +61,28 @@ def trade_signal(df):
 	"""
 	pass
 
+def true_range(df):
+	df['previous_close'] = df['close'].shift(1)
+	df['high-low'] = df['high'] - df['low']
+	df['high-pc'] = df['high'] - df['previous_close']
+	df['low-pc'] = df['low'] - df['previous_close']
+
+	return df[['high-low','high-pc', 'low-pc']].max(axis=1)
+
+def avg_true_range(df,n_data_points):
+	"""N is the number of datapoints to average from"""
+	df['true_range'] = true_range(df)
+	atr = df['true_range'].rolling(n_data_points).mean()
+	return atr
 
 def supertrend_indicator(bars, period = 15, multiplier = 3):
 
-	def true_range(df):
-		df['previous_close'] = df['close'].shift(1)
-		df['high-low'] = df['high'] - df['low']
-		df['high-pc'] = df['high'] - df['previous_close']
-		df['low-pc'] = df['low'] - df['previous_close']
-
-		return df[['high-low','high-pc', 'low-pc']].max(axis=1)
-
-	def avg_true_range(df,n_data_points):
-		"""N is the number of datapoints to average from"""
-		df['true_range'] = true_range(df)
-		atr = df['true_range'].rolling(n_data_points).mean()
-		return atr
-
 	# supertrend starts here
 	df = pd.DataFrame(bars[:-1],columns=['timestamp','open','high','low','close','volume'])
+	df['ATR']= avg_true_range(df,period)
 	df['upper_band'] = (df['high']+df['low'])/2 + (multiplier*df['ATR'])
 	df['lower_band'] = (df['high']+df['low'])/2 - (multiplier*df['ATR'])
+	df['in_uptrend'] = True 
 
 	# return the lower band, the upper band, and the signal
 	for current_price_idx in range(1,len(df.index)):
@@ -95,7 +96,7 @@ def supertrend_indicator(bars, period = 15, multiplier = 3):
 			df['in_uptrend'][current_price_idx] = df['in_uptrend'][previous_price_idx]
 
 			if df['in_uptrend'][current_price_idx] and df['lower_band'][current_price_idx] < df['lower_band'][previous_price_idx]:
-				df['lower_band'][current] = df['lower_band'][previous]
+				df['lower_band'][current_price_idx] = df['lower_band'][previous_price_idx]
 
 			if not df['in_uptrend'][current_price_idx] and df['upper_band'][current_price_idx] > df['upper_band'][previous_price_idx]:
 				df['upper_band'][current_price_idx] = df['upper_band'][previous_price_idx]

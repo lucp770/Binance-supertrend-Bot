@@ -101,6 +101,7 @@ if __name__ == '__main__' :
 
 	# get the historical data]
 	bars = exchange.fetch_ohlcv('ETH/USDT',timeframe='1m',limit=100)
+	print('\n \n bars: ', bars)
 
 	#create and configure a pandas dataframe
 	df = pd.DataFrame(bars[:-1],columns=['timestamp','open','high','low','close','volume'])
