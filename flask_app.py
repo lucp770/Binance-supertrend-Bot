@@ -61,23 +61,16 @@ def echo(ws):
         selected_coin = parsed_data['selectedCoin']
         trading_amount = parsed_data['traddingAmmount']
 
-
-
         while True:
         	data_package = [];
 
         	historical_data = utilities.getHistoricalData(coin = selected_coin)
-        	data_package.append(historical_data);
-
-        	# ws.send(historical_data)
-        	print(historical_data)
-        	# invoque supertrend(historical_data)
+        	data_package.append(historical_data)
         	supertrend_data = utilities.supertrend_indicator(bars =historical_data)
-        	print(supertrend_data)
-
         	data_package.append(supertrend_data)
 
-        	print(data_package)
+        	data_package = json.dumps(data_package)
+        	ws.send(data_package);
 
         	# send here the data associated with the supertrend indicator.
         	# ws.dend(supertrend_data)
@@ -95,8 +88,18 @@ if __name__ =="__main__":
 valor agregado no software:
 	-analise tecnica, bots e trade autonomo personalizado diretamente da sua corretora.
 
-
 Pitch:
 	existe uma grande demanda pela  capacidade de se implementar estratégias automas de trading que permite.
+
+"""
+
+"""
+O problema presente é que o trading não pode ser baseado em websockets. uma vez que a emissão de eventos
+pelo sistema de websockets é distribuido para todos os usuários conectados.
+
+-os indicadores como supertrend, e etc. podem ser calculados no lado servidor, mas o trading precisa ser
+realizado por uma chamada REST específica para o backend, ou via front end para permitir que os dados gerais sejam enviados, para todos os usuários conectados,
+mas ainda sim usuários diferentes podem ser coletados.
+
 
 """

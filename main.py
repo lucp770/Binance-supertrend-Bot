@@ -11,9 +11,12 @@ import utilities
 exchange = ccxt.binance()
 bars = exchange.fetch_ohlcv('ETH/BTC',timeframe = '1m',limit= 100);
 
-df = pd.DataFrame(bars[:-1],columns=['timestamp','open','high','low','close','volume'])
+print('bars: ', bars)
 
-df2 = utilities.supertrend_indicator(bars)
-print(df.head())
+# df = pd.DataFrame(bars[:-1],columns=['timestamp','open','high','low','close','volume'])
+
+df2 = utilities.supertrend_indicator(bars = bars)
+# print(df.head())
 
 print('\n', df2)
+

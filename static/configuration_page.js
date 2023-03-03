@@ -40,8 +40,10 @@ function transformToDate(unixtimestamp){
 	return string;
 }
 
-function generatePlot(data){
+function generatePricePlot(data){
 	// data is an array with 30 elements.
+
+	let priceData = data[0]
 	
 	// define empty arrays.
 	let timestamp=[]; 
@@ -52,7 +54,7 @@ function generatePlot(data){
 	let volume =[];
 
 	// for each element on data fill the array.
-	data.forEach(datapoint =>{
+	priceData.forEach(datapoint =>{
 		timestamp.push(transformToDate(datapoint[0]));
 		open.push(datapoint[1]);
 		high.push(datapoint[2]);
@@ -82,6 +84,18 @@ function generatePlot(data){
 	  	xaxis: 'x', 
 	  	yaxis: 'y'
 	};
+
+	// let trace2 ={
+	// 	X: timestamp,
+	// 	y: null,
+	// }
+
+	// let trace3 = {
+	// 	x: timestamp,
+	// 	y: null
+	// }
+
+
 
 	let plotData = [trace1];
 	// need to create trace 2 e trace 3 do indicador supertrend.
@@ -154,10 +168,14 @@ function executeTrade(){
 
 	socket.onmessage = function(event){
 	console.log(' the server have sent a message');
+	console.log(typeof(event.data));
+	console.log(event.data);
 	
 	// the data is a string, parse to obtain an array
 	let data = JSON.parse(event.data);
-	generatePlot(data)
+	generatePricePlot(data);
+
+	
 
 }
 

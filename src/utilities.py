@@ -52,7 +52,7 @@ def getHistoricalData(coin ='ETH/USDT', timeframe = '1m', limit = 30):
 	bars = exchange.fetch_ohlcv(coin,timeframe = timeframe,limit= limit)
 	#bars is an array limit x 6, where the columns are ['timestamp','open','high','low','close','volume']
 	
-	bars = json.dumps(bars)
+	# bars = json.dumps(bars)
 	return bars
 
 def trade_signal(df):
@@ -105,5 +105,7 @@ def supertrend_indicator(bars, period = 15, multiplier = 3):
 	
 	# get the upper and lower band as a list.
 	df = df.loc[:,['upper_band','lower_band','in_uptrend']]
+	# df = df.loc[:,['upper_band','lower_band']]
+	df = df[(period+1):]
 	
-	return df.values
+	return df.values.tolist()
