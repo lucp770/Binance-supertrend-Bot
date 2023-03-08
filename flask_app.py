@@ -54,7 +54,6 @@ def login():
 @sockets.route('/tradding')
 def echo(ws):
     while True:
-
         data_received = ws.receive()#receive data about user preferences.
         parsed_data = json.loads(data_received)
 
@@ -64,8 +63,8 @@ def echo(ws):
         while True:
         	data_package = [];
 
-        	historical_data = utilities.getHistoricalData(coin = selected_coin)
-        	data_package.append(historical_data)
+        	historical_data = utilities.getHistoricalData(coin = 'ETH/BTC')
+        	data_package.append(historical_data[15:])
         	supertrend_data = utilities.supertrend_indicator(bars =historical_data)
         	data_package.append(supertrend_data)
 

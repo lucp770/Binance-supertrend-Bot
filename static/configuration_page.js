@@ -43,7 +43,8 @@ function transformToDate(unixtimestamp){
 function generatePricePlot(data){
 	// data is an array with 30 elements.
 
-	let priceData = data[0]
+	let priceData = data[0];
+	
 	
 	// define empty arrays.
 	let timestamp=[]; 
@@ -63,9 +64,23 @@ function generatePricePlot(data){
 		volume.push(datapoint[5]);
 	});
 
+	let superTrendData  = data[1];
+
+	let upperBand =[];
+	let lowerBand = [];
+	let inUppTrend = [];
+
+	superTrendData.forEach(datapoint =>{
+		upperBand.push(datapoint[0]);
+		lowerBand.push(datapoint[1]);
+		inUppTrend.push(datapoint[2]);
+
+	});
+
+
 	let totalSize = Math.abs(Math.max(...high) - Math.min(...low));
 
-	let trace1 ={
+	let price ={
 		x:timestamp,
 		close: close,
 
@@ -85,10 +100,21 @@ function generatePricePlot(data){
 	  	yaxis: 'y'
 	};
 
-	// let trace2 ={
-	// 	X: timestamp,
-	// 	y: null,
-	// }
+	let supertrendUpperBand ={
+		type: "scatter",
+		mode: "lines",
+		x: timestamp,
+		y: upperBand,
+		line: {color:'#00ff00' }
+	};
+
+	let supertrendLowerBand ={
+	type: "scatter",
+	mode: "lines",
+	x: timestamp,
+	y: lowerBand,
+	line: {color:'rgb(255,0,0)' }
+};
 
 	// let trace3 = {
 	// 	x: timestamp,
@@ -97,7 +123,7 @@ function generatePricePlot(data){
 
 
 
-	let plotData = [trace1];
+	let plotData = [price, supertrendUpperBand, supertrendLowerBand];
 	// need to create trace 2 e trace 3 do indicador supertrend.
 
 	let layout = {

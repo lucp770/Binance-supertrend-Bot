@@ -46,7 +46,7 @@ def getMarkets():
 	markets = [market for market in exchange.load_markets()]
 	return markets
 
-def getHistoricalData(coin ='ETH/USDT', timeframe = '1m', limit = 30):
+def getHistoricalData(coin ='ETH/USDT', timeframe = '1m', limit = 45):
 	# this function is executed periodically
 	exchange = ccxt.binance()
 	bars = exchange.fetch_ohlcv(coin,timeframe = timeframe,limit= limit)
