@@ -42,9 +42,7 @@ function transformToDate(unixtimestamp){
 
 function generatePricePlot(data){
 	// data is an array with 30 elements.
-
 	let priceData = data[0];
-	
 	
 	// define empty arrays.
 	let timestamp=[]; 
@@ -64,8 +62,8 @@ function generatePricePlot(data){
 		volume.push(datapoint[5]);
 	});
 
+	// SUPERTREND DATA
 	let superTrendData  = data[1];
-
 	let upperBand =[];
 	let lowerBand = [];
 	let inUppTrend = [];
@@ -77,8 +75,7 @@ function generatePricePlot(data){
 
 	});
 
-
-	let totalSize = Math.abs(Math.max(...high) - Math.min(...low));
+	// let totalSize = Math.abs(Math.max(...high) - Math.min(...low));
 
 	let price ={
 		x:timestamp,
@@ -115,14 +112,6 @@ function generatePricePlot(data){
 	y: lowerBand,
 	line: {color:'rgb(255,0,0)' }
 };
-
-	// let trace3 = {
-	// 	x: timestamp,
-	// 	y: null
-	// }
-
-
-
 	let plotData = [price, supertrendUpperBand, supertrendLowerBand];
 	// need to create trace 2 e trace 3 do indicador supertrend.
 
@@ -151,9 +140,13 @@ function generatePricePlot(data){
 		    range: [Math.min(...low),Math.max(...high)], 
 		    type: 'linear'
   		}
-	};
 
-	console.log(timestamp[0],timestamp[timestamp.length-1] );
+
+		// iterate over the array and return
+	};
+	
+
+	// console.log(timestamp[0],timestamp[timestamp.length-1] );
 	let panel = document.getElementById('tester');
 	Plotly.newPlot(panel, plotData, layout);
 	
@@ -181,6 +174,26 @@ function getUserSelection(){
 
 }
 
+function muteBtns(){
+	
+	startBtn.disabled = true;
+	startBtn.classList.add('inactive-btn');
+	// userInputAmount.readonly="readonly";
+	
+	userInputAmount.disabled= true;
+	stopBtn.classList.remove('inactive-btn');
+
+}
+function showBtns(){
+	startBtn.disabled = false;
+	startBtn.classList.remove('inactive-btn');
+	
+	userInputAmount.disabled = false;
+	stopBtn.classList.add('inactive-btn');
+	stopBtn.disabled = true;
+}
+
+
 function executeTrade(){
 	socket = new WebSocket("ws://localhost:5000/tradding");
 	socket.onopen = function (event) {
@@ -190,20 +203,26 @@ function executeTrade(){
 
 	// send user information to the server.
 	socket.send(userSelection);
+
+	// inactivate buttons
+	muteBtns();
 		};
 
 	socket.onmessage = function(event){
-	console.log(' the server have sent a message');
-	console.log(typeof(event.data));
-	console.log(event.data);
+	// console.log(' the server have sent a message');
+	// console.log(typeof(event.data));
+	// console.log(event.data);
 	
 	// the data is a string, parse to obtain an array
 	let data = JSON.parse(event.data);
 	generatePricePlot(data);
 
-	
-
+	// let lastPrices = data[1]
 }
+
+	socket.onclose = function(event){
+		showBtns();
+	}
 
 
 }
@@ -237,8 +256,6 @@ function checkAmount(){
 			console.log('user can trade');
 
 			executeTrade();
-			
-			
 			// i opt to use websockets to server comunication( an eg: https://stackoverflow.com/questions/15721679/update-and-render-a-value-from-flask-periodically)
 			
 		}
@@ -254,7 +271,15 @@ function checkAmount(){
 // ---------------------------------------APPLICATION START HERE ----------------------------------//
 
 startBtn.addEventListener('click', ()=>{
-	checkAmount();
+	if(startBtn.disabled){
+		alert('already trading');
+	}
+	else{
+		
+		checkAmount();
+	}
+	
+	
 	
 })
 

@@ -50,7 +50,6 @@ align-items: center;
 	width: 6.5rem;
 	padding: .5rem 1rem;
 	font-style: italic;
-	font-variant: ;
 	font-family: helvetica;
 	letter-spacing: .03rem;
 }
@@ -135,7 +134,14 @@ align-items: center;
 .image-container div{
 	position: absolute;
 /*	left: 9rem;*/
-left: 3.5rem;
-margin-left: 0;
+	left: 3.5rem;
+	margin-left: 0;
+
+}
+
+.inactive-btn , .inactive-btn:hover{
+	background: #696969;
+	cursor: inherit;
+	filter: none;
 
 }

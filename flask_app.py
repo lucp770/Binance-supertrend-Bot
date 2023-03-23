@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-import webview
+# import webview
 from flask_sock import Sock
 import time
 import json
@@ -67,6 +67,7 @@ def echo(ws):
         	data_package.append(historical_data[15:])
         	supertrend_data = utilities.supertrend_indicator(bars =historical_data)
         	data_package.append(supertrend_data)
+			
 
         	data_package = json.dumps(data_package)
         	ws.send(data_package);

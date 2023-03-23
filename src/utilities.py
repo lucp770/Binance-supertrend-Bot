@@ -75,6 +75,20 @@ def avg_true_range(df,n_data_points):
 	atr = df['true_range'].rolling(n_data_points).mean()
 	return atr
 
+def check_buy_sell_signal(df):
+	"""
+	return true to buy (1), and false (0) to sell
+	"""
+
+	last_row = len(df.index) - 1
+	previous_row = last_row - 1
+
+	if not df['in_uptrend'][previous_row] and df['in_uptrend'][last_row]:
+		return True;
+
+	if df['in_uptrend'][previous_row] and not df['in_uptrend'][last_row]:
+		return False;
+
 def supertrend_indicator(bars, period = 15, multiplier = 3):
 
 	# supertrend starts here
@@ -101,7 +115,8 @@ def supertrend_indicator(bars, period = 15, multiplier = 3):
 			if not df['in_uptrend'][current_price_idx] and df['upper_band'][current_price_idx] > df['upper_band'][previous_price_idx]:
 				df['upper_band'][current_price_idx] = df['upper_band'][previous_price_idx]
 
-			# check if there is a buy or sell signal.
+
+		
 	
 	# get the upper and lower band as a list.
 	df = df.loc[:,['upper_band','lower_band','in_uptrend']]
