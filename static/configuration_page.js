@@ -75,17 +75,20 @@ function generatePricePlot(data){
 
 	});
 
+	console.log('price: ', priceData.length);
+	console.log('\n supertrend: ', superTrendData.length)
+
 	// let totalSize = Math.abs(Math.max(...high) - Math.min(...low));
 
 	let price ={
 		x:timestamp,
 		close: close,
 
-		decreasing: {line: {color: '#7F7F7F'}}, 
+		decreasing: {line: {color: '#ff0000'}}, 
 
 		high: high,
 
-		increasing: {line: {color: '#17BECF'}}, 
+		increasing: {line: {color: '#02b62b'}}, 
 
   		line: {color: 'rgba(31,119,180,1)'},
 
@@ -259,15 +262,9 @@ function checkAmount(){
 			// i opt to use websockets to server comunication( an eg: https://stackoverflow.com/questions/15721679/update-and-render-a-value-from-flask-periodically)
 			
 		}
-
 	}
-
-	}
-
-	
+	}	
 }
-
-
 // ---------------------------------------APPLICATION START HERE ----------------------------------//
 
 startBtn.addEventListener('click', ()=>{
@@ -278,7 +275,6 @@ startBtn.addEventListener('click', ()=>{
 		
 		checkAmount();
 	}
-	
 	
 	
 })

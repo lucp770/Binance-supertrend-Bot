@@ -2,7 +2,7 @@ import ccxt
 import pandas as pd
 from datetime import datetime 
 pd.set_option('display.max_rows',None)
-import schedule
+# import schedule
 import time
 
 import warnings
@@ -101,11 +101,11 @@ if __name__ == '__main__' :
 
 	# get the historical data]
 	bars = exchange.fetch_ohlcv('ETH/USDT',timeframe='1m',limit=100)
-	print('\n \n bars: ', bars)
+	# print('\n \n bars: ', bars)
 
 	#create and configure a pandas dataframe
 	df = pd.DataFrame(bars[:-1],columns=['timestamp','open','high','low','close','volume'])
-	df['timestamp']=pd.to_datetime(df['timestamp'],unit='ms')
+	# df['timestamp']=pd.to_datetime(df['timestamp'],unit='ms')
 
 	supertrend_data = supertrend(df)
 
@@ -113,7 +113,8 @@ if __name__ == '__main__' :
 	supertrend_data = supertrend_data.loc[:, ['timestamp', 'close', 'upper_band', 'lower_band', 'in_uptrend']]
 	supertrend_data = supertrend_data[15:]#remove the first 15 datapoints that do not work because of the ATR calculation
 	# print(supertrend_data.head())
-
+	print(df[15:].head(), '\n \n')
+	print(supertrend_data.head())
 	supertrend_data_array = supertrend_data.values
 	
 

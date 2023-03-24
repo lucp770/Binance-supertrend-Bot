@@ -115,12 +115,9 @@ def supertrend_indicator(bars, period = 15, multiplier = 3):
 			if not df['in_uptrend'][current_price_idx] and df['upper_band'][current_price_idx] > df['upper_band'][previous_price_idx]:
 				df['upper_band'][current_price_idx] = df['upper_band'][previous_price_idx]
 
-
-		
-	
 	# get the upper and lower band as a list.
 	df = df.loc[:,['upper_band','lower_band','in_uptrend']]
 	# df = df.loc[:,['upper_band','lower_band']]
-	df = df[(period+1):]
+	df = df[(period):]
 	
 	return df.values.tolist()
