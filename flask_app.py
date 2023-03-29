@@ -70,6 +70,17 @@ def echo(ws):
         		data_package = json.dumps(data_package)
         		ws.send(data_package)
         		time.sleep(1)
+        		
+#create a private route for trading.
+@app.route("/execute_order", methods = ['POST'])
+def execute_order():
+	#fetch user apikey and secret from the database:
+	key,secret = '';
+	
+	#fetch coinpair, amount, buy or sell from the ui
+	coinpair, amount, buy_sell = '';
+	
+	utilities.execute_trade(key, secret,coinpair,amount, buy_sell)
 
 
 if __name__ =="__main__":

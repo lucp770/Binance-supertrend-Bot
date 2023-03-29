@@ -113,9 +113,9 @@ if __name__ == '__main__' :
 	supertrend_data = supertrend_data.loc[:, ['timestamp', 'close', 'upper_band', 'lower_band', 'in_uptrend']]
 	supertrend_data = supertrend_data[15:]#remove the first 15 datapoints that do not work because of the ATR calculation
 	# print(supertrend_data.head())
-	print(df[15:].head(), '\n \n')
-	print(supertrend_data.head())
-	supertrend_data_array = supertrend_data.values
+
+	bars = exchange.fetch_ohlcv('ETH/USDT',timeframe='1m', limit = 2)
+	print(bars[-1][4])
 	
 
 

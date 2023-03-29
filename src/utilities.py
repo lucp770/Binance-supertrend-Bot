@@ -121,3 +121,20 @@ def supertrend_indicator(bars, period = 15, multiplier = 3):
 	df = df[(period):]
 	
 	return df.values.tolist()
+
+def execute_trade(key, secret,coinpair,amount, buy_sell = 'buy'):
+	logInObj = {'apiKey': key, 'secret': secret, 'timeout': 30000, 'enableRateLimit': True}
+
+	try:
+		exchange = ccxt.binance(logInObj)
+
+		if(exchange.has['createMarketOrder']):
+			exchange.create_order(symbol =coinpair, type ='market',side = buy_sell,amount=amount)
+		else:
+			# fetch last price:
+			price = getHistoricalData(coin = coinpair, limit=2)[-1][4]#confirmar se o valor esta correto.
+			# create limit order in the last price === create market order.
+			exchange.create_order(symbol =coinpair, type ='limit',side = buy_sell,amount=amount, price=price)
+
+	except Exception as e:
+		print('Error: ', e)

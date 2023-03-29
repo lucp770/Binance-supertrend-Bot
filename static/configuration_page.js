@@ -144,8 +144,10 @@ function generatePricePlot(data){
 		    type: 'linear'
   		}
 
+		// iterate over the array and return if there is a buy or sell signal.
 
-		// iterate over the array and return
+		// when buying, update the ui to show the currency that was bought.
+
 	};
 	
 
