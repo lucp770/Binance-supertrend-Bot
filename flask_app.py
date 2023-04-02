@@ -25,8 +25,8 @@ sockets = Sock(app)
 def homepage():
 	return render_template("main.html")
 
-
-@app.route("/", methods = ['POST'])
+# @app.route("/key_signature", methods = ['POST'])
+@app.route("/key_signature", methods = ['POST'])
 def login():
 	print(request)
 	# get the api key e secret from the body of the POST method.
@@ -54,22 +54,26 @@ def login():
 @sockets.route('/tradding')
 def echo(ws):
 	while True:
-        	data_received = ws.receive()#receive data about user preferences.
-        	parsed_data = json.loads(data_received)
-        	selected_coin = parsed_data['selectedCoin']
-        	trading_amount = parsed_data['traddingAmmount']
-        	while True:
-        		data_package = []
-        		historical_data = utilities.getHistoricalData(coin = 'ETH/BTC')
-        		data_package.append(historical_data[15:])
-        		supertrend_data = utilities.supertrend_indicator(bars =historical_data)
-        		data_package.append(supertrend_data)
-        		print('\n testing: ')
-        		print(supertrend_data[0])
-        		print(historical_data[15])
-        		data_package = json.dumps(data_package)
-        		ws.send(data_package)
-        		time.sleep(1)
+		utilities.run_socket_connection(ws)
+
+# def echo(ws):
+# 	while True:
+#         	data_received = ws.receive()#receive data about user preferences.
+#         	parsed_data = json.loads(data_received)
+#         	selected_coin = parsed_data['selectedCoin']
+#         	trading_amount = parsed_data['traddingAmmount']
+#         	while True:
+#         		data_package = []
+#         		historical_data = utilities.getHistoricalData(coin = 'ETH/BTC')
+#         		data_package.append(historical_data[15:])
+#         		supertrend_data = utilities.supertrend_indicator(bars =historical_data)
+#         		data_package.append(supertrend_data)
+#         		print('\n testing: ')
+#         		print(supertrend_data[0])
+#         		print(historical_data[15])
+#         		data_package = json.dumps(data_package)
+#         		ws.send(data_package)
+#         		time.sleep(1)
         		
 #create a private route for trading.
 @app.route("/execute_order", methods = ['POST'])
